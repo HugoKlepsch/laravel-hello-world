@@ -17,7 +17,7 @@
       </LaravelCodeGeneration>
     </option>
     <option name="frameworkFound" value="true" />
-    <option name="laravelBasePath" value="laravel-hw" />
+    <option name="laravelBasePath" value="myapp" />
     <option name="userClassName" value="\App\Models\User" />
   </component>
 </project>
