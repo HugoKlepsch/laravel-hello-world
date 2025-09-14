@@ -15,6 +15,9 @@ laravel new myapp
 composer require laravel/breeze --dev
 php artisan breeze:install
 
+# Build resources
+npm install && npm run dev
+
 # Start local server
 php artisan serve
 ```
