@@ -1,11 +1,21 @@
-# What I ran
+# Dev env setup
 
 ```bash
+# Install PHP
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)"
+
+# Composer is the PHP package manager
+# Install Laravel
 composer global require laravel/installer
-laravel new laravel-hw
+
+# Create laravel project 'myapp'
+laravel new myapp
+
+# Install Breeze -- Laravel's default authentication scaffolding
 composer require laravel/breeze --dev
 php artisan breeze:install
+
+# Start local server
 php artisan serve
 ```
 
@@ -30,5 +40,14 @@ development server.
 
 # Local dev
 
-`php artisan serve` -- runs http server
-`npm run dev` -- constantly watches for changes and rebuilds. Not actually receiving requests.
+In `myapp` dir:
+
+```bash
+# runs http server
+php artisan serve
+```
+
+```bash
+# constantly watches for changes and rebuilds. Not actually receiving requests.
+npm run dev
+```
