@@ -43,11 +43,5 @@ development server.
 In `myapp` dir:
 
 ```bash
-# runs http server
-php artisan serve
-```
-
-```bash
-# constantly watches for changes and rebuilds. Not actually receiving requests.
-npm run dev
+composer dev
 ```
