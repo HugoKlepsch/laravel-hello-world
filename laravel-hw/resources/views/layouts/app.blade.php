@@ -11,6 +11,25 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Theme init: set dark class early to avoid FOUC -->
+        <script>
+            (function() {
+                try {
+                    const stored = localStorage.getItem('theme');
+                    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    const shouldDark = stored ? stored === 'dark' : prefersDark;
+                    const root = document.documentElement;
+                    if (shouldDark) {
+                        root.classList.add('dark');
+                        root.setAttribute('data-theme', 'dark');
+                    } else {
+                        root.classList.remove('dark');
+                        root.setAttribute('data-theme', 'light');
+                    }
+                } catch (e) { /* no-op */ }
+            })();
+        </script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

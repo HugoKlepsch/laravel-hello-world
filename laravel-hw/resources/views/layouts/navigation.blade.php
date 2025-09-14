@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false, dark: document.documentElement.classList.contains('dark') }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -18,8 +18,39 @@
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <!-- Right side: Theme Toggle + Settings Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
+                <!-- Theme Toggle -->
+                <button
+                    x-on:click="
+                        dark = !dark;
+                        const root = document.documentElement;
+                        if (dark) {
+                            root.classList.add('dark');
+                            root.setAttribute('data-theme','dark');
+                            localStorage.setItem('theme','dark');
+                        } else {
+                            root.classList.remove('dark');
+                            root.setAttribute('data-theme','light');
+                            localStorage.setItem('theme','light');
+                        }
+                    "
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    :aria-label="dark ? 'Switch to light mode' : 'Switch to dark mode'"
+                    :title="dark ? 'Switch to light mode' : 'Switch to dark mode'"
+                >
+                    <!-- Moon icon (shown in light mode) -->
+                    <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707 8 8 0 1017.293 13.293z" />
+                    </svg>
+                    <!-- Sun icon (shown in dark mode) -->
+                    <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-4 7a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM4.222 4.222a1 1 0 011.415 0L6.343 4.93a1 1 0 11-1.414 1.415L4.222 5.636a1 1 0 010-1.414zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm12.728-5.657a1 1 0 010 1.415L14.657 6.343a1 1 0 11-1.414-1.415l.707-.707a1 1 0 011.415 0zM17 9a1 1 0 100 2h1a1 1 0 100-2h-1zm-1.636 5.364a1 1 0 00-1.415 0l-.707.707a1 1 0 101.414 1.414l.708-.707a1 1 0 000-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                <!-- Settings Dropdown -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -54,6 +85,27 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
+                <!-- Mobile Theme Toggle -->
+                <button
+                    x-on:click="
+                        dark = !dark;
+                        const root = document.documentElement;
+                        if (dark) { root.classList.add('dark'); root.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+                        else { root.classList.remove('dark'); root.setAttribute('data-theme','light'); localStorage.setItem('theme','light'); }
+                    "
+                    type="button"
+                    class="me-1 inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    :aria-label="dark ? 'Switch to light mode' : 'Switch to dark mode'"
+                    :title="dark ? 'Switch to light mode' : 'Switch to dark mode'"
+                >
+                    <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707 8 8 0 1017.293 13.293z" />
+                    </svg>
+                    <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-4 7a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM4.222 4.222a1 1 0 011.415 0L6.343 4.93a1 1 0 11-1.414 1.415L4.222 5.636a1 1 0 010-1.414zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm12.728-5.657a1 1 0 010 1.415L14.657 6.343a1 1 0 11-1.414-1.415l.707-.707a1 1 0 011.415 0zM17 9a1 1 0 100 2h1a1 1 0 100-2h-1zm-1.636 5.364a1 1 0 00-1.415 0l-.707.707a1 1 0 101.414 1.414l.708-.707a1 1 0 000-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -80,6 +132,28 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <!-- Mobile Theme Toggle within menu -->
+                <button
+                    x-on:click="
+                        dark = !dark;
+                        const root = document.documentElement;
+                        if (dark) { root.classList.add('dark'); root.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+                        else { root.classList.remove('dark'); root.setAttribute('data-theme','light'); localStorage.setItem('theme','light'); }
+                    "
+                    type="button"
+                    class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
+                >
+                    <span x-text="dark ? 'Light mode' : 'Dark mode'"></span>
+                    <span class="ms-auto inline-flex">
+                        <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707 8 8 0 1017.293 13.293z" />
+                        </svg>
+                        <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-4 7a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM4.222 4.222a1 1 0 011.415 0L6.343 4.93a1 1 0 11-1.414 1.415L4.222 5.636a1 1 0 010-1.414zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm12.728-5.657a1 1 0 010 1.415L14.657 6.343a1 1 0 11-1.414-1.415l.707-.707a1 1 0 011.415 0zM17 9a1 1 0 100 2h1a1 1 0 100-2h-1zm-1.636 5.364a1 1 0 00-1.415 0l-.707.707a1 1 0 101.414 1.414l.708-.707a1 1 0 000-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </button>
+
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
