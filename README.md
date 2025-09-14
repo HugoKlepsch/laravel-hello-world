@@ -27,3 +27,8 @@ provides a number of commands for developing your application.
 It allows you to perform tasks like database migrations, cache clearing, 
 creating controllers/models/migrations, running tests, and starting the 
 development server.
+
+# Local dev
+
+`php artisan serve` -- runs http server
+`npm run dev` -- constantly watches for changes and rebuilds. Not actually receiving requests.
